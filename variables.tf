@@ -20,4 +20,5 @@ variable "s3_bucket_name" {
 
 variable "name" {
   description = "Name of EC2 Intance"
+  default = "test-vm"
 }
