@@ -18,6 +18,11 @@ variable "s3_bucket_name" {
   default = "champions-bucket"
 }
 
+variable "private_key_path" {
+  description = "The path to the SSH private key file used for provisioning."
+  type        = string
+}
+
 variable "name" {
   description = "Name of EC2 Intance"
   default = "test-vm02"
