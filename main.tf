@@ -25,10 +25,6 @@ resource "aws_instance" "example" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
-  tags = {
-    Name = var.name
-  }
-
 
   provisioner "file" 
   {
@@ -45,6 +41,10 @@ resource "aws_instance" "example" {
       "sudo systemctl start apache2",
       "sudo systemctl enable apache2"
     ]
+  }
+
+  tags = {
+    Name = var.name
   }
 
   user_data = <<-EOF
