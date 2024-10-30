@@ -12,11 +12,11 @@ provider "aws" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["amazon"]
+  owners      = ["099720109477"]  # Canonical's AWS account ID for Ubuntu AMIs
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 }
 
@@ -25,13 +25,12 @@ resource "aws_instance" "example" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
-
   provisioner "file" {
     source      = "index.html"
     destination = "/var/www/html/index.html"
   }
 
-  provisioner "remote-exec"{
+  provisioner "remote-exec" {
     inline = [
       "sudo apt update -y",
       "sudo apt install -y apache2",
@@ -47,10 +46,10 @@ resource "aws_instance" "example" {
 
   user_data = <<-EOF
               #!/bin/bash
-              sudo yum -y update
-              sudo yum -y install httpd
-              sudo systemctl start httpd
-              sudo systemctl enable httpd
+              sudo apt update -y
+              sudo apt install -y apache2
+              sudo systemctl start apache2
+              sudo systemctl enable apache2
               EOF
 
   lifecycle {
