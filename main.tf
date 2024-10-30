@@ -51,6 +51,11 @@ resource "aws_instance" "example" {
     host        = self.public_ip
   }
 
+
+  provisioner "local-exec" {
+  command = "sleep 60"  # Waits 60 seconds
+  }
+
   provisioner "file" {
     source      = "index.html"
     destination = "/var/www/html/index.html"
