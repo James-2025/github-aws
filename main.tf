@@ -26,14 +26,12 @@ resource "aws_instance" "example" {
   key_name      = var.key_name
 
 
-  provisioner "file" 
-  {
+  provisioner "file" {
     source      = "index.html"
     destination = "/var/www/html/index.html"
   }
 
-  provisioner "remote-exec" 
-  {
+  provisioner "remote-exec"{
     inline = [
       "sudo apt update -y",
       "sudo apt install -y apache2",
