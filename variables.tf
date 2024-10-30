@@ -10,7 +10,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "Name of the existing EC2 key pair"
-  default = "2023"
+  default = "2024"
 }
 
 variable "s3_bucket_name" {
