@@ -10,7 +10,7 @@ provider "aws" {
   region = var.aws_region
 }
 
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["amazon"]
 
@@ -21,7 +21,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "example" {
-  ami           = data.aws_ami.amazon_linux.id
+  ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
   key_name      = var.key_name
 
