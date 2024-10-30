@@ -57,15 +57,20 @@ resource "aws_instance" "example" {
   }
 
   provisioner "file" {
+    #source      = "index.html"
+    #destination = "/var/www/html/index.html"
     source      = "index.html"
-    destination = "/var/www/html/index.html"
+    destination = "/tmp/index.html"  # Use a temporary directory
+  
   }
 
   provisioner "remote-exec" {
     inline = [
       "sudo apt update -y",
       "sudo apt install -y apache2",
-      "sudo mv /var/www/html/index.html /var/www/html/",
+      #"sudo mv /var/www/html/index.html /var/www/html/",
+      "sudo mv /tmp/index.html /var/www/html/index.html",  # Move it with sudo
+      "sudo chown www-data:www-data /var/www/html/index.html",  # Set ownership
       "sudo systemctl start apache2",
       "sudo systemctl enable apache2"
     ]
