@@ -22,6 +22,13 @@ jobs:
         echo "$SSH_KEY" > ~/.ssh/2024.pem
         chmod 600 ~/.ssh/2024.pem
 
+    - name: Verify SSH key permissions and path
+      run: |
+          ls -l ~/.ssh/
+          chmod 600 ~/.ssh/2024.pem  # Ensure the key has correct permissions
+          ssh-keygen -y -f ~/.ssh/2024.pem  # This checks if the private key format is valid without printing it
+     
+
     - name: Set AWS credentials
       run: |
         echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
