@@ -25,6 +25,14 @@ resource "aws_instance" "example" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
+  # SSH connection configuration for provisioners
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"  # Default user for Ubuntu AMIs
+    private_key = file(var.private_key_path)  # Path to the SSH private key
+    host        = self.public_ip
+  }
+
   provisioner "file" {
     source      = "index.html"
     destination = "/var/www/html/index.html"
